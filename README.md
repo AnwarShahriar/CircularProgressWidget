@@ -15,3 +15,6 @@ Exposed properties:
 4. `progress` default value `0`
 5. `progressLineWidth`  default value `10`
 6. `color` default value `Colors.black`
+
+Demo:
+![demo gif](https://github.com/AnwarShahriar/CircularProgressWidget/blob/master/demo.gif)

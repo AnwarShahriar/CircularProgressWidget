@@ -64,15 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class CircularProgressWidget extends StatefulWidget {
-
-  @override
-  State<StatefulWidget> createState() {
-    return CircularProgressState();
-  }
-}
-
-class CircularProgressState extends State<CircularProgressWidget> {
+class CircularProgressWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

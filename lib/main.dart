@@ -28,7 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double _progress = 0.0;
-  final double max = 100.0; CircleP
+  final double max = 100.0;
 
   @override
   Widget build(BuildContext context) {

@@ -27,6 +27,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  double _progress = 0.0;
+  final double max = 100.0;
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -41,40 +44,73 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Stack(
-          children: <Widget>[
-            Center(
-              child: CircularProgressWidget(),
-            ),
-            Center(
-              child: Text(
-                "awesome",
-                style: TextStyle(
-                  fontSize: 28.0,
+      body: Column(
+        children: <Widget>[
+          Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(32.0),
+                child: CircularProgressWidget(
+                  max: max,
+                  progress: _progress,
+                  progressLineWidth: 30.0,
+                  color: Colors.red[400],
                 ),
               ),
-            )
-          ],
-        )
+              Text(
+                "${_progress.toInt()}",
+                style: TextStyle(
+                  fontSize: 72.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87
+                ),
+              ),
+            ],
+          ),
+          Slider(
+            max: max,
+            min: 0.0,
+            value: _progress,
+            onChanged: (value) {
+              setState(() => _progress = value);
+            },
+          )
+        ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
 class CircularProgressWidget extends StatelessWidget {
+  final double width;
+  final double height;
+  final double progressLineWidth;
+  final double max;
+  final double progress;
+  final Color color;
+
+  CircularProgressWidget(
+      {Key key,
+      this.width = 300,
+      this.height = 300,
+      this.max = 100,
+      this.progress = 0,
+      this.progressLineWidth = 10,
+      this.color = Colors.black})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    double progressInDegree = max == 0 ? 0 : (360 / max) * progress;
     return Container(
-      width: 300,
-      height: 300,
+      width: this.width,
+      height: this.height,
       child: CustomPaint(
         foregroundPainter: CirclePainter(
-          degree: 300,
-          color: Colors.red[400],
-          width: 10,
+          degree: progressInDegree,
+          color: color,
+          width: progressLineWidth,
         ),
       ),
     );

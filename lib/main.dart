@@ -27,7 +27,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -45,54 +44,76 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: <Widget>[
-            Container(
-              width: 200,
-              height: 200,
-              child: CustomPaint(
-                foregroundPainter: MyPainter(
-                  degree: 300,
-                  color: Colors.red[400],
-                  width: 10,
-                ),
-                child: Center(
-                  child: Text(
-                    "Awesome",
-                    style: TextStyle(fontSize: 20.0),
-                  ),
+            Center(
+              child: CircularProgressWidget(),
+            ),
+            Center(
+              child: Text(
+                "awesome",
+                style: TextStyle(
+                  fontSize: 28.0,
                 ),
               ),
-            ),
+            )
           ],
-        ),
+        )
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
 
-class MyPainter extends CustomPainter {
-  Paint line;
+class CircularProgressWidget extends StatefulWidget {
+
+  @override
+  State<StatefulWidget> createState() {
+    return CircularProgressState();
+  }
+}
+
+class CircularProgressState extends State<CircularProgressWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 300,
+      height: 300,
+      child: CustomPaint(
+        foregroundPainter: CirclePainter(
+          degree: 300,
+          color: Colors.red[400],
+          width: 10,
+        ),
+      ),
+    );
+  }
+}
+
+class CirclePainter extends CustomPainter {
+  Paint border, solid;
   double start;
   double degree;
   double width;
 
-  MyPainter({this.degree, this.width = 5.0, Color color}) {
-    line = Paint()
-    ..color = color
-    ..strokeCap = StrokeCap.round
-    ..strokeWidth = width
-    ..style = PaintingStyle.stroke;
-
+  CirclePainter({this.degree, this.width = 5.0, Color color}) {
+    border = Paint()
+      ..color = color
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = width
+      ..style = PaintingStyle.stroke;
+    solid = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
     start = -0.5 * pi;
   }
 
   @override
   void paint(Canvas canvas, Size size) {
-    Offset offset = Offset(size.width/2, size.height/2);
+    Offset offset = Offset(size.width / 2, size.height / 2);
     double radius = min(offset.dx, offset.dy);
-    canvas.drawArc(Rect.fromCircle(center: offset, radius: radius), start, (degree / 180) * pi, false, line);
+    //canvas.drawCircle(offset, radius, solid);
+    canvas.drawArc(Rect.fromCircle(center: offset, radius: radius), start,
+        (degree / 180) * pi, false, border);
   }
 
   @override

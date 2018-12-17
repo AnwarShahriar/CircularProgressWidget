@@ -1,16 +1,17 @@
-# circular_progress
+# CircularProgressWidget
 
-A new Flutter project.
+A custom circular progress bar.
 
-## Getting Started
+This project demostrates, how to build a custom widget with canvas and Flutter UI.
+The base widget just a circular progress bar, which is composed with a centered text
+and a slider to show how it works.
 
-This project is a starting point for a Flutter application.
+You can hook up any progressable value with it and it'll show a nice progress update.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.io/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.io/docs/cookbook)
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.io/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Exposed properties:
+1. `width` default value `300`
+2. `height` default value `300`
+3. `max` default value `100`
+4. `progress` default value `0`
+5. `progressLineWidth`  default value `10`
+6. `color` default value `Colors.black`

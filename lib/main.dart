@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
+import 'package:circular_progress/circularprogress.dart';
 
 void main() => runApp(MyApp());
 
@@ -28,16 +28,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   double _progress = 0.0;
-  final double max = 100.0;
+  final double max = 100.0; CircleP
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -80,70 +74,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-}
-
-class CircularProgressWidget extends StatelessWidget {
-  final double width;
-  final double height;
-  final double progressLineWidth;
-  final double max;
-  final double progress;
-  final Color color;
-
-  CircularProgressWidget(
-      {Key key,
-      this.width = 300,
-      this.height = 300,
-      this.max = 100,
-      this.progress = 0,
-      this.progressLineWidth = 10,
-      this.color = Colors.black})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    double progressInDegree = max == 0 ? 0 : (360 / max) * progress;
-    return Container(
-      width: this.width,
-      height: this.height,
-      child: CustomPaint(
-        foregroundPainter: CirclePainter(
-          degree: progressInDegree,
-          color: color,
-          width: progressLineWidth,
-        ),
-      ),
-    );
-  }
-}
-
-class CirclePainter extends CustomPainter {
-  Paint border, solid;
-  double start;
-  double degree;
-  double width;
-
-  CirclePainter({this.degree, this.width = 5.0, Color color}) {
-    border = Paint()
-      ..color = color
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = width
-      ..style = PaintingStyle.stroke;
-    solid = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.fill;
-    start = -0.5 * pi;
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Offset offset = Offset(size.width / 2, size.height / 2);
-    double radius = min(offset.dx, offset.dy);
-    //canvas.drawCircle(offset, radius, solid);
-    canvas.drawArc(Rect.fromCircle(center: offset, radius: radius), start,
-        (degree / 180) * pi, false, border);
-  }
-
-  @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
